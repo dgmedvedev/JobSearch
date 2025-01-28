@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Job Search</string>
+    <string name="search_hint_text">"  Position, keywords"</string>
+    <string name="vacancies_for_you">Vacancies for you</string>
+    <string name="view_all_vacancies">View all vacancies</string>
+    <string name="tools_text_all_vacancies">Still 143 vacancies</string>
 </resources>
