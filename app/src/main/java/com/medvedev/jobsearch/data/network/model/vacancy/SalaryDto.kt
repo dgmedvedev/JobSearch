@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SalaryDto(
     @SerializedName("full")
-    val full: String? = null,
+    val fullSalary: String? = null,
     @SerializedName("short")
-    val _short: String? = null
+    val shortSalary: String? = null
 )
