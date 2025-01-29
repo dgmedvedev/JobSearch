@@ -1,3 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Job Search</string>
+    <string name="search_hint_text">"  Position, keywords"</string>
+    <string name="vacancies_for_you">Vacancies for you</string>
+    <string name="view_all_vacancies">View all vacancies</string>
+    <string name="tools_text_all_vacancies">Still 143 vacancies</string>
+    <string name="btn_vacancies_filter">Vacancies filtering button</string>
+    <string name="tools_text_number_of_vacancies">1 vacancy</string>
+    <string name="favorite">Favorite</string>
+    <string name="messages">Messages</string>
+    <string name="profile">Profile</string>
+    <string name="responses">Responses</string>
 </resources>
