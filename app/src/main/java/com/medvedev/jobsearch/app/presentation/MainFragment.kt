@@ -26,14 +26,21 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun testNetwork() {
         val apiService = ApiFactory.apiService
 
-        val jsonDeferred = lifecycleScope.async {
+        val offersDeferred = lifecycleScope.async {
             withContext(Dispatchers.IO) {
-                apiService.getJson()
+                apiService.getOffers()
+            }
+        }
+        val vacanciesDeferred = lifecycleScope.async {
+            withContext(Dispatchers.IO) {
+                apiService.getVacancies()
             }
         }
         lifecycleScope.launch {
-            val json = jsonDeferred.await()
-            Log.d("TEST_NETWORK", "$json")
+            val offers = offersDeferred.await().offers
+            val vacancies = vacanciesDeferred.await().vacancies
+            Log.d("TEST_NETWORK", "offers: $offers")
+            Log.d("TEST_NETWORK", "vacancies: $vacancies")
         }
     }
 }
