@@ -5,4 +5,10 @@
     <string name="vacancies_for_you">Вакансии для вас</string>
     <string name="view_all_vacancies">Просмотреть все вакансии</string>
     <string name="tools_text_all_vacancies">Еще 143 вакансии</string>
+    <string name="btn_vacancies_filter">Кнопка фильтр вакансий</string>
+    <string name="tools_text_number_of_vacancies">1 вакансия</string>
+    <string name="favorite">Избранное</string>
+    <string name="messages">Сообщения</string>
+    <string name="profile">Профиль</string>
+    <string name="responses">Отклики</string>
 </resources>
