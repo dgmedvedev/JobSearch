@@ -1,6 +1,6 @@
 package com.medvedev.jobsearch.domain.model.vacancy
 
-class Salary(
+data class Salary(
     val fullSalary: String?,
     val shortSalary: String?
 )

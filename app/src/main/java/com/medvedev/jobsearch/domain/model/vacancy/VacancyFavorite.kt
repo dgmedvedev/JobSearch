@@ -1,6 +1,6 @@
 package com.medvedev.jobsearch.domain.model.vacancy
 
-data class Vacancy(
+data class VacancyFavorite(
     val id: String?,
     val lookingNumber: Int?,
     val title: String?,
