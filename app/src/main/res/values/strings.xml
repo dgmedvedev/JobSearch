@@ -4,11 +4,23 @@
     <string name="search_hint_text">"  Position, keywords"</string>
     <string name="vacancies_for_you">Vacancies for you</string>
     <string name="view_all_vacancies">View all vacancies</string>
-    <string name="tools_text_all_vacancies">Still 143 vacancies</string>
     <string name="btn_vacancies_filter">Vacancies filtering button</string>
-    <string name="tools_text_number_of_vacancies">1 vacancy</string>
     <string name="favorite">Favorite</string>
     <string name="messages">Messages</string>
     <string name="profile">Profile</string>
     <string name="responses">Responses</string>
+    <string name="offer_icon">Offer icon</string>
+    <string name="favorite_vacancy_icon">Favorite vacancy icon</string>
+    <string name="company_icon">Company icon</string>
+    <string name="experience_icon">Experience icon</string>
+    <string name="tools_text_all_vacancies">All 143 vacancies nearby</string>
+    <string name="tools_text_number_of_vacancies">1 vacancy</string>
+    <string name="tools_text_uplift">Uplift</string>
+    <string name="tools_text_uplift_resume">Uplift resume</string>
+    <string name="tools_text_looking_number">1 person now viewing</string>
+    <string name="tools_text_title">UI/UX Designer</string>
+    <string name="tools_text_town">Minsk</string>
+    <string name="tools_text_company">Mobyrix</string>
+    <string name="tools_text_experience">Experience of 1 to 3 years</string>
+    <string name="tools_text_publish_date">Posted 16 February</string>
 </resources>

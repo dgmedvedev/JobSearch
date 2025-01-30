@@ -4,11 +4,23 @@
     <string name="search_hint_text">"  Должность, ключевые слова"</string>
     <string name="vacancies_for_you">Вакансии для вас</string>
     <string name="view_all_vacancies">Просмотреть все вакансии</string>
-    <string name="tools_text_all_vacancies">Еще 143 вакансии</string>
     <string name="btn_vacancies_filter">Кнопка фильтр вакансий</string>
-    <string name="tools_text_number_of_vacancies">1 вакансия</string>
     <string name="favorite">Избранное</string>
     <string name="messages">Сообщения</string>
     <string name="profile">Профиль</string>
     <string name="responses">Отклики</string>
+    <string name="offer_icon">Иконка предложения</string>
+    <string name="favorite_vacancy_icon">Иконка избранной вакансии</string>
+    <string name="company_icon">Иконка компании</string>
+    <string name="experience_icon">Иконка опыта работы</string>
+    <string name="tools_text_all_vacancies">Еще 143 вакансии</string>
+    <string name="tools_text_number_of_vacancies">1 вакансия</string>
+    <string name="tools_text_uplift">Поднять</string>
+    <string name="tools_text_uplift_resume">Поднять резюме в поиске</string>
+    <string name="tools_text_looking_number">Cейчас просматривает 1 человек</string>
+    <string name="tools_text_title">UI/UX дизайнер</string>
+    <string name="tools_text_town">Минск</string>
+    <string name="tools_text_company">Мобирикс</string>
+    <string name="tools_text_experience">Опыт от 1 года до 3 лет</string>
+    <string name="tools_text_publish_date">Опубликовано 16 февраля</string>
 </resources>
