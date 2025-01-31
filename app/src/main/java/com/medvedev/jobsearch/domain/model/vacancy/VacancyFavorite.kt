@@ -8,7 +8,7 @@ data class VacancyFavorite(
     val company: String?,
     val experience: Experience?,
     val publishedDate: String?,
-    val isFavorite: Boolean?,
+    val isFavorite: Boolean,
     val salary: Salary?,
     val schedules: List<String>?,
     val appliedNumber: Int?,
