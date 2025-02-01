@@ -9,7 +9,11 @@ import com.medvedev.jobsearch.R
 import com.medvedev.jobsearch.databinding.VacancyItemBinding
 import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
 
-class VacancyAdapter(private val onVacancyItemClickListener: (Vacancy) -> Unit) :
+class VacancyAdapter(
+    private val onVacancyItemClickListener: (Vacancy) -> Unit,
+    private val onVacancyIconClickListener: (Boolean) -> Unit,
+    private val onButtonApplyClickListener: () -> Unit
+) :
     ListAdapter<Vacancy, VacancyAdapter.VacancyHolder>(VacancyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyHolder {
@@ -35,7 +39,11 @@ class VacancyAdapter(private val onVacancyItemClickListener: (Vacancy) -> Unit) 
             binding.apply {
                 vacancyItem.lookingNumber?.let { lookingNumber ->
                     tvLookingNumber.text =
-                        root.context.getString(R.string.text_looking_number, "$lookingNumber")
+                        root.context.getString(
+                            R.string.text_looking_number,
+                            "$lookingNumber",
+                            declineWord(lookingNumber)
+                        )
                 }
                 ivFavoriteVacancyIcon.setImageResource(
                     if (vacancyItem.isFavorite) R.drawable.heart_is_favorite else R.drawable.heart
@@ -56,6 +64,14 @@ class VacancyAdapter(private val onVacancyItemClickListener: (Vacancy) -> Unit) 
                         root.context.getString(R.string.text_publish_date, "$day", monthName)
                 }
                 btnApply.text = root.context.getString(R.string.apply)
+
+                btnApply.setOnClickListener {
+                    onButtonApplyClickListener.invoke()
+                }
+
+                ivFavoriteVacancyIcon.setOnClickListener {
+                    onVacancyIconClickListener.invoke(vacancyItem.isFavorite)
+                }
 
                 root.setOnClickListener {
                     onVacancyItemClickListener.invoke(vacancyItem)
@@ -82,7 +98,18 @@ class VacancyAdapter(private val onVacancyItemClickListener: (Vacancy) -> Unit) 
         return monthsGenitiveCase[month - 1]
     }
 
+    private fun declineWord(numberOfPeople: Int): String {
+        return when {
+            numberOfPeople in 12..14 -> PERSON_NOMINATIVE_CASE
+            numberOfPeople % 10 in 0..1 -> PERSON_NOMINATIVE_CASE
+            numberOfPeople % 10 in 5..9 -> PERSON_NOMINATIVE_CASE
+            else -> PERSON_GENITIVE_CASE
+        }
+    }
+
     companion object {
+        private const val PERSON_NOMINATIVE_CASE = "человек"
+        private const val PERSON_GENITIVE_CASE = "человека"
         private const val JANUARY = "января"
         private const val FEBRUARY = "февраля"
         private const val MARCH = "марта"

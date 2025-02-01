@@ -16,7 +16,7 @@
     <string name="id_near_vacancies">near_vacancies</string>
     <string name="id_level_up_resume">level_up_resume</string>
     <string name="id_temporary_job">temporary_job</string>
-    <string name="text_looking_number">Cейчас просматривает %s человек</string>
+    <string name="text_looking_number">Cейчас просматривает %s %s</string>
     <string name="text_publish_date">Опубликовано %s %s</string>
     <string name="text_all_vacancies">Еще %s</string>
     <string name="tools_text_number_of_vacancies">1 вакансия</string>
@@ -27,4 +27,7 @@
     <string name="tools_text_company">Мобирикс</string>
     <string name="tools_text_experience">Опыт от 1 года до 3 лет</string>
     <string name="apply">Откликнуться</string>
+
+    <!--    Errors-->
+    <string name="unknown_viewmodel_class">Unknown ViewModel class</string>
 </resources>
