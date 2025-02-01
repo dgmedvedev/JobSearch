@@ -36,58 +36,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val vacancyAdapter by lazy {
         VacancyAdapter(
             onVacancyItemClickListener(),
-            onVacancyIconClickListener(),
-            onButtonApplyClickListener()
+            onVacancyIconClickListener()
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapters()
-        setListeners()
+        setListener()
         bindViewModel()
         vm.loadData()
     }
 
     private fun onOfferItemClickListener(): (Offer) -> Unit = { offer ->
-        Toast.makeText(requireContext(), "${offer.id}", Toast.LENGTH_SHORT).show()
+        launchFragment(WebViewFragment.getInstance(offer.link))
     }
 
-    private fun onVacancyItemClickListener(): (Vacancy) -> Unit = { vacancy ->
-        Toast.makeText(requireContext(), "${vacancy.company}", Toast.LENGTH_SHORT).show()
+    private fun onVacancyItemClickListener(): () -> Unit = {
+        launchFragment(VacancyPageFragment.getInstance())
     }
 
     private fun onVacancyIconClickListener(): (Vacancy) -> Unit = { vacancy ->
         Toast.makeText(requireContext(), "${vacancy.isFavorite}", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun onButtonApplyClickListener(): () -> Unit = {
-        Toast.makeText(requireContext(), "Button is clicked", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun bindViewModel() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is MainViewModel.State.OffersLoaded -> offerAdapter.submitList(state.offers)
-                is MainViewModel.State.VacanciesLoaded -> {
-                    val vacancies = state.vacancies
-                    val visibleVacancies = if (vacancies.size > 3) vacancies.take(3) else vacancies
-                    vacancyAdapter.submitList(visibleVacancies)
-                    binding.btnAllVacancies.text =
-                        getString(
-                            R.string.text_all_vacancies,
-                            getVacancyGenitiveCase(vacancies.size)
-                        )
-                }
-
-                is MainViewModel.State.ErrorLoadingOffers -> showToast(state.error)
-                is MainViewModel.State.ErrorLoadingVacancies -> showToast(state.error)
-            }
-        }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setAdapters() {
@@ -108,9 +78,41 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
-    private fun setListeners() {
+    private fun setListener() {
         binding.btnAllVacancies.setOnClickListener {
             launchFragment(RelevantVacanciesFragment.getInstance())
+        }
+    }
+
+    private fun bindViewModel() {
+        vm.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MainViewModel.State.OffersLoaded -> offerAdapter.submitList(state.offers)
+                is MainViewModel.State.VacanciesLoaded -> {
+                    val vacancies = state.vacancies
+                    val visibleVacancies = if (vacancies.size > 3) vacancies.take(3) else vacancies
+                    vacancyAdapter.submitList(visibleVacancies)
+                    binding.btnAllVacancies.text =
+                        getString(
+                            R.string.text_all_vacancies,
+                            getVacancyGenitiveCase(vacancies.size)
+                        )
+                }
+
+                is MainViewModel.State.ErrorLoadingOffers -> showToast(
+                    getString(
+                        R.string.error_loading_offers,
+                        state.error
+                    )
+                )
+
+                is MainViewModel.State.ErrorLoadingVacancies -> showToast(
+                    getString(
+                        R.string.error_loading_vacancies,
+                        state.error
+                    )
+                )
+            }
         }
     }
 
@@ -126,14 +128,21 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun launchFragment(fragment: Fragment) {
         parentFragmentManager
             .beginTransaction()
-            .add(R.id.container_main, fragment)
+            .replace(R.id.container_main, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
         private const val VACANCY_FORM_SINGULAR = "вакансия"
         private const val VACANCY_FORM_FEW = "вакансии"
         private const val VACANCY_FORM_MANY = "вакансий"
+
+        fun getInstance(): MainFragment =
+            MainFragment()
     }
 }

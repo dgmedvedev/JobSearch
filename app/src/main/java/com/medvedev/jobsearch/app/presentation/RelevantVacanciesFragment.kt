@@ -27,36 +27,31 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
     private val vacancyAdapter by lazy {
         VacancyAdapter(
             onVacancyItemClickListener(),
-            onVacancyIconClickListener(),
-            onButtonApplyClickListener()
+            onVacancyIconClickListener()
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
-        setListeners()
+        setListener()
         bindViewModel()
         vm.loadData()
     }
 
-    private fun onVacancyItemClickListener(): (Vacancy) -> Unit = { vacancy ->
-        Toast.makeText(requireContext(), "${vacancy.company}", Toast.LENGTH_SHORT).show()
+    private fun onVacancyItemClickListener(): () -> Unit = {
+        launchFragment(VacancyPageFragment.getInstance())
     }
 
     private fun onVacancyIconClickListener(): (Vacancy) -> Unit = { vacancy ->
         Toast.makeText(requireContext(), "${vacancy.isFavorite}", Toast.LENGTH_SHORT).show()
     }
 
-    private fun onButtonApplyClickListener(): () -> Unit = {
-        Toast.makeText(requireContext(), "Button is clicked", Toast.LENGTH_SHORT).show()
-    }
-
     private fun setAdapter() {
         binding.rvVacancies.adapter = vacancyAdapter
     }
 
-    private fun setListeners() {
+    private fun setListener() {
         binding.ivBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
@@ -74,7 +69,12 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
                         )
                 }
 
-                is RelevantVacanciesViewModel.State.Error -> showToast(state.error)
+                is RelevantVacanciesViewModel.State.Error -> showToast(
+                    getString(
+                        R.string.error_loading_vacancies,
+                        state.error
+                    )
+                )
             }
         }
     }
@@ -86,6 +86,14 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
             numberOfVacancies % 10 in 2..4 -> "$numberOfVacancies $VACANCY_FORM_FEW"
             else -> "$numberOfVacancies $VACANCY_FORM_MANY"
         }
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container_main, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun showToast(message: String) {

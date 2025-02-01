@@ -11,9 +11,9 @@ import com.medvedev.jobsearch.databinding.VacancyItemBinding
 import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
 
 class VacancyAdapter(
-    private val onVacancyItemClickListener: (Vacancy) -> Unit,
+    private val onVacancyItemClickListener: () -> Unit,
     private val onVacancyIconClickListener: (Vacancy) -> Unit,
-    private val onButtonApplyClickListener: () -> Unit
+    private val onButtonApplyClickListener: (() -> Unit)? = null
 ) :
     ListAdapter<Vacancy, VacancyAdapter.VacancyHolder>(VacancyDiffCallback()) {
 
@@ -65,26 +65,20 @@ class VacancyAdapter(
                 setFavoriteVacancyIcon(ivFavoriteVacancyIcon, vacancyItem.isFavorite)
 
                 btnApply.setOnClickListener {
-                    onButtonApplyClickListener.invoke()
+                    onButtonApplyClickListener?.invoke()
                 }
 
                 ivFavoriteVacancyIcon.setOnClickListener {
                     onVacancyIconClickListener.invoke(vacancyItem)
                     vacancyItem.isFavorite = !vacancyItem.isFavorite
-                    setFavoriteVacancyIcon(ivFavoriteVacancyIcon, vacancyItem.isFavorite)
+                    setFavoriteVacancyIcon(ivFavoriteVacancyIcon, !vacancyItem.isFavorite)
                 }
 
                 root.setOnClickListener {
-                    onVacancyItemClickListener.invoke(vacancyItem)
+                    onVacancyItemClickListener.invoke()
                 }
             }
         }
-    }
-
-    private fun setFavoriteVacancyIcon(imageView: ImageView, isFavorite: Boolean) {
-        imageView.setImageResource(
-            if (isFavorite) R.drawable.heart_is_favorite else R.drawable.heart
-        )
     }
 
     private class VacancyDiffCallback : DiffUtil.ItemCallback<Vacancy>() {
@@ -95,6 +89,12 @@ class VacancyAdapter(
         override fun areContentsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
             return oldItem == newItem
         }
+    }
+
+    private fun setFavoriteVacancyIcon(imageView: ImageView, isFavorite: Boolean) {
+        imageView.setImageResource(
+            if (isFavorite) R.drawable.heart_is_favorite else R.drawable.heart
+        )
     }
 
     private fun getMonthName(month: Int): String {

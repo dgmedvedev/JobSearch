@@ -6,7 +6,7 @@ import com.medvedev.jobsearch.R
 class VacancyPageFragment : Fragment(R.layout.fragment_vacancy_page) {
 
     companion object {
-        fun getInstance(): ResponsesFragment =
-            ResponsesFragment()
+        fun getInstance(): VacancyPageFragment =
+            VacancyPageFragment()
     }
 }

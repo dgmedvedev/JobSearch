@@ -25,8 +25,8 @@ class RelevantVacanciesViewModel(
                     getVacanciesUseCase()
                 }
                 _state.value = State.Loaded(vacancies = vacancies)
-            } catch (error: Exception) {
-                _state.value = State.Error(error = error.message.toString())
+            } catch (e: Exception) {
+                _state.value = State.Error(error = e.message.toString())
             }
         }
     }

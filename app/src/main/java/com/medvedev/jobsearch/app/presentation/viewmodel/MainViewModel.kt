@@ -28,8 +28,8 @@ class MainViewModel(
                     getOffersUseCase()
                 }
                 _state.value = State.OffersLoaded(offers = offers)
-            } catch (error: Exception) {
-                _state.value = State.ErrorLoadingOffers(error = error.message.toString())
+            } catch (e: Exception) {
+                _state.value = State.ErrorLoadingOffers(error = e.message.toString())
             }
         }
         viewModelScope.launch {
@@ -38,8 +38,8 @@ class MainViewModel(
                     getVacanciesUseCase()
                 }
                 _state.value = State.VacanciesLoaded(vacancies = vacancies)
-            } catch (error: Exception) {
-                _state.value = State.ErrorLoadingVacancies(error = error.message.toString())
+            } catch (e: Exception) {
+                _state.value = State.ErrorLoadingVacancies(error = e.message.toString())
             }
         }
     }
