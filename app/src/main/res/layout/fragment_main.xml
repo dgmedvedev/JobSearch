@@ -5,7 +5,7 @@
     android:id="@+id/fragment_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/shadows"
     android:padding="16dp"
     tools:context=".app.presentation.MainFragment">
 
@@ -21,7 +21,7 @@
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:text="@string/search_hint_text"
-        android:textColor="@color/gray_text"
+        android:textColor="@color/grey_3"
         app:drawableLeftCompat="@drawable/search_icon"
         app:layout_constraintEnd_toStartOf="@+id/btn_filter"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,23 +59,26 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_vacancies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/btn_all_vacancies"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vacancies_for_you" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_vacancies_for_you"
+        app:layout_constraintVertical_weight="@integer/material_motion_duration_long_1" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_all_vacancies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/special_blue"
+        android:backgroundTint="@color/blue"
         android:contentDescription="@string/view_all_vacancies"
+        android:visibility="gone"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/tools_text_all_vacancies" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
