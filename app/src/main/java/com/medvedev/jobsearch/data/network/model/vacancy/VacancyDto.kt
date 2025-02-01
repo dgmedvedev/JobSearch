@@ -18,7 +18,7 @@ data class VacancyDto(
     @SerializedName("publishedDate")
     val publishedDate: String? = null,
     @SerializedName("isFavorite")
-    val isFavorite: Boolean? = null,
+    val isFavorite: Boolean = false,
     @SerializedName("salary")
     val salary: SalaryDto? = null,
     @SerializedName("schedules")
