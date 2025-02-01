@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.medvedev.jobsearch.R
 import com.medvedev.jobsearch.app.presentation.adapter.OfferAdapter
@@ -57,7 +59,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvOffers.layoutManager = layoutManager
         binding.rvOffers.adapter = offerAdapter
+
         binding.rvVacancies.adapter = vacancyAdapter
+        binding.rvVacancies.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
+                binding.btnAllVacancies.visibility =
+                    if (visibleItemPosition >= 1) View.VISIBLE else View.GONE
+            }
+        })
     }
 
     private fun testNetwork() {
@@ -163,7 +175,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 listOf("Где располагается место работы?", "Какой график работы?")
             )
         )
-        vacancyAdapter.submitList(vacancies)
+        val visibleVacancies = if (vacancies.size > 3) vacancies.take(3) else vacancies
+        vacancyAdapter.submitList(visibleVacancies)
 
         binding.btnAllVacancies.text =
             getString(R.string.text_all_vacancies, getVacancyGenitiveCase(vacancies.size))
