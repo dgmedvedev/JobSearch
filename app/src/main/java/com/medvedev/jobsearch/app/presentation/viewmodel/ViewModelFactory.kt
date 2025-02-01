@@ -43,6 +43,10 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             return FavoriteVacanciesViewModel(
                 getVacanciesFavoriteUseCase = getVacanciesFavoriteUseCase
             ) as T
+        } else if (modelClass.isAssignableFrom(RelevantVacanciesViewModel::class.java)) {
+            return RelevantVacanciesViewModel(
+                getVacanciesUseCase = getVacanciesUseCase
+            ) as T
         }
         throw IllegalArgumentException(context.getString(R.string.unknown_viewmodel_class))
     }

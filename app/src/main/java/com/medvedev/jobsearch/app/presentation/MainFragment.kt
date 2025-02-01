@@ -44,6 +44,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapters()
+        setListeners()
         bindViewModel()
         vm.loadData()
     }
@@ -107,6 +108,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
+    private fun setListeners() {
+        binding.btnAllVacancies.setOnClickListener {
+            launchFragment(RelevantVacanciesFragment.getInstance())
+        }
+    }
+
     private fun getVacancyGenitiveCase(numberOfVacancies: Int): String {
         return when {
             numberOfVacancies in 11..14 -> "$numberOfVacancies $VACANCY_FORM_MANY"
@@ -114,6 +121,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             numberOfVacancies % 10 in 2..4 -> "$numberOfVacancies $VACANCY_FORM_FEW"
             else -> "$numberOfVacancies $VACANCY_FORM_MANY"
         }
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        parentFragmentManager
+            .beginTransaction()
+            .add(R.id.container_main, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
