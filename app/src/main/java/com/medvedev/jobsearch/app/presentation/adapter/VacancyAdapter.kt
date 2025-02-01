@@ -2,6 +2,7 @@ package com.medvedev.jobsearch.app.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
 
 class VacancyAdapter(
     private val onVacancyItemClickListener: (Vacancy) -> Unit,
-    private val onVacancyIconClickListener: (Boolean) -> Unit,
+    private val onVacancyIconClickListener: (Vacancy) -> Unit,
     private val onButtonApplyClickListener: () -> Unit
 ) :
     ListAdapter<Vacancy, VacancyAdapter.VacancyHolder>(VacancyDiffCallback()) {
@@ -45,9 +46,6 @@ class VacancyAdapter(
                             declineWord(lookingNumber)
                         )
                 }
-                ivFavoriteVacancyIcon.setImageResource(
-                    if (vacancyItem.isFavorite) R.drawable.heart_is_favorite else R.drawable.heart
-                )
                 tvTitle.text = vacancyItem.title?.trim()
                 vacancyItem.address?.let { address ->
                     tvTown.text = address.town?.trim()
@@ -64,13 +62,16 @@ class VacancyAdapter(
                         root.context.getString(R.string.text_publish_date, "$day", monthName)
                 }
                 btnApply.text = root.context.getString(R.string.apply)
+                setFavoriteVacancyIcon(ivFavoriteVacancyIcon, vacancyItem.isFavorite)
 
                 btnApply.setOnClickListener {
                     onButtonApplyClickListener.invoke()
                 }
 
                 ivFavoriteVacancyIcon.setOnClickListener {
-                    onVacancyIconClickListener.invoke(vacancyItem.isFavorite)
+                    onVacancyIconClickListener.invoke(vacancyItem)
+                    vacancyItem.isFavorite = !vacancyItem.isFavorite
+                    setFavoriteVacancyIcon(ivFavoriteVacancyIcon, vacancyItem.isFavorite)
                 }
 
                 root.setOnClickListener {
@@ -78,6 +79,12 @@ class VacancyAdapter(
                 }
             }
         }
+    }
+
+    private fun setFavoriteVacancyIcon(imageView: ImageView, isFavorite: Boolean) {
+        imageView.setImageResource(
+            if (isFavorite) R.drawable.heart_is_favorite else R.drawable.heart
+        )
     }
 
     private class VacancyDiffCallback : DiffUtil.ItemCallback<Vacancy>() {

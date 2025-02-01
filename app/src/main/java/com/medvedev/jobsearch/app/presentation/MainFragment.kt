@@ -56,8 +56,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         Toast.makeText(requireContext(), "${vacancy.company}", Toast.LENGTH_SHORT).show()
     }
 
-    private fun onVacancyIconClickListener(): (Boolean) -> Unit = { isFavorite ->
-        Toast.makeText(requireContext(), "$isFavorite", Toast.LENGTH_SHORT).show()
+    private fun onVacancyIconClickListener(): (Vacancy) -> Unit = { vacancy ->
+        Toast.makeText(requireContext(), "${vacancy.isFavorite}", Toast.LENGTH_SHORT).show()
     }
 
     private fun onButtonApplyClickListener(): () -> Unit = {
