@@ -5,32 +5,23 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.medvedev.jobsearch.R
-import com.medvedev.jobsearch.app.presentation.adapter.OfferAdapter
 import com.medvedev.jobsearch.app.presentation.adapter.VacancyAdapter
-import com.medvedev.jobsearch.app.presentation.viewmodel.MainViewModel
+import com.medvedev.jobsearch.app.presentation.viewmodel.RelevantVacanciesViewModel
 import com.medvedev.jobsearch.app.presentation.viewmodel.ViewModelFactory
-import com.medvedev.jobsearch.databinding.FragmentMainBinding
-import com.medvedev.jobsearch.domain.model.offer.Offer
+import com.medvedev.jobsearch.databinding.FragmentRelevantVacanciesBinding
 import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies) {
 
-    private val binding by viewBinding(FragmentMainBinding::bind)
+    private val binding by viewBinding(FragmentRelevantVacanciesBinding::bind)
 
     private val vm by lazy {
         ViewModelProvider(
             this,
             ViewModelFactory(requireContext().applicationContext)
-        )[MainViewModel::class.java]
-    }
-
-    private val offerAdapter by lazy {
-        OfferAdapter(onOfferItemClickListener())
+        )[RelevantVacanciesViewModel::class.java]
     }
 
     private val vacancyAdapter by lazy {
@@ -42,14 +33,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapters()
+        setAdapter()
         setListener()
         bindViewModel()
         vm.loadData()
-    }
-
-    private fun onOfferItemClickListener(): (Offer) -> Unit = { offer ->
-        launchFragment(WebViewFragment.getInstance(offer.link))
     }
 
     private fun onVacancyItemClickListener(): () -> Unit = {
@@ -60,53 +47,29 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         Toast.makeText(requireContext(), "${vacancy.isFavorite}", Toast.LENGTH_SHORT).show()
     }
 
-    private fun setAdapters() {
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvOffers.layoutManager = layoutManager
-        binding.rvOffers.adapter = offerAdapter
-
+    private fun setAdapter() {
         binding.rvVacancies.adapter = vacancyAdapter
-        binding.rvVacancies.addOnScrollListener(object : OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                binding.btnAllVacancies.visibility =
-                    if (visibleItemPosition >= 1) View.VISIBLE else View.GONE
-            }
-        })
     }
 
     private fun setListener() {
-        binding.btnAllVacancies.setOnClickListener {
-            launchFragment(RelevantVacanciesFragment.getInstance())
+        binding.ivBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 
     private fun bindViewModel() {
         vm.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is MainViewModel.State.OffersLoaded -> offerAdapter.submitList(state.offers)
-                is MainViewModel.State.VacanciesLoaded -> {
-                    val vacancies = state.vacancies
-                    val visibleVacancies = if (vacancies.size > 3) vacancies.take(3) else vacancies
-                    vacancyAdapter.submitList(visibleVacancies)
-                    binding.btnAllVacancies.text =
+                is RelevantVacanciesViewModel.State.Loaded -> {
+                    vacancyAdapter.submitList(state.vacancies)
+                    binding.tvNumberOfVacancies.text =
                         getString(
-                            R.string.text_all_vacancies,
-                            getVacancyGenitiveCase(vacancies.size)
+                            R.string.number_of_vacancies,
+                            getVacancyGenitiveCase(state.vacancies.size)
                         )
                 }
 
-                is MainViewModel.State.ErrorLoadingOffers -> showToast(
-                    getString(
-                        R.string.error_loading_offers,
-                        state.error
-                    )
-                )
-
-                is MainViewModel.State.ErrorLoadingVacancies -> showToast(
+                is RelevantVacanciesViewModel.State.Error -> showToast(
                     getString(
                         R.string.error_loading_vacancies,
                         state.error
@@ -142,7 +105,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         private const val VACANCY_FORM_FEW = "вакансии"
         private const val VACANCY_FORM_MANY = "вакансий"
 
-        fun getInstance(): MainFragment =
-            MainFragment()
+        fun getInstance(): RelevantVacanciesFragment =
+            RelevantVacanciesFragment()
     }
 }

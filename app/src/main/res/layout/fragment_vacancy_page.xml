@@ -2,19 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_profile"
+    android:id="@+id/fragment_vacancy_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/shadows"
     android:padding="16dp"
-    tools:context=".app.presentation.ProfileFragment">
+    tools:context=".app.presentation.VacancyPageFragment">
 
     <TextView
-        android:id="@+id/tv_profile"
+        android:id="@+id/tv_responses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/profile"
+        android:text="@string/vacancy_page"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
