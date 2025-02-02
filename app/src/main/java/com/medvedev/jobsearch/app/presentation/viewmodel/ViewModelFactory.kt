@@ -57,7 +57,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             ) as T
         } else if (modelClass.isAssignableFrom(FavoriteVacanciesViewModel::class.java)) {
             return FavoriteVacanciesViewModel(
-                getVacanciesFavoriteUseCase = getVacanciesFavoriteUseCase
+                getVacanciesFavoriteUseCase = getVacanciesFavoriteUseCase,
+                insertVacancyFavoriteUseCase = insertVacancyFavoriteUseCase,
+                deleteVacancyFavoriteUseCase = deleteVacancyFavoriteUseCase
             ) as T
         } else if (modelClass.isAssignableFrom(RelevantVacanciesViewModel::class.java)) {
             return RelevantVacanciesViewModel(
