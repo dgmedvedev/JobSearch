@@ -3,9 +3,9 @@ package com.medvedev.jobsearch.app.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.medvedev.jobsearch.R
 import com.medvedev.jobsearch.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,39 +21,25 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setListener() {
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_search -> {
-                    launchFragment(MainFragment.getInstance())
-                    true
-                }
+        binding.bottomNavigation.setOnNavItemClickListener { index ->
+            when (index) {
+                0 -> launchFragment(MainFragment.getInstance())
 
-                R.id.nav_favorite -> {
-                    launchFragment(FavoriteVacanciesFragment.getInstance())
-                    true
-                }
+                1 -> launchFragment(FavoriteVacanciesFragment.getInstance())
 
-                R.id.nav_responses -> {
-                    launchFragment(ResponsesFragment.getInstance())
-                    true
-                }
+                2 -> launchFragment(ResponsesFragment.getInstance())
 
-                R.id.nav_messages -> {
-                    launchFragment(MessagesFragment.getInstance())
-                    true
-                }
+                3 -> launchFragment(MessagesFragment.getInstance())
 
-                R.id.nav_profile -> {
-                    launchFragment(ProfileFragment.getInstance())
-                    true
-                }
+                4 -> launchFragment(ProfileFragment.getInstance())
 
-                else -> false
+                else -> return@setOnNavItemClickListener
             }
         }
     }
 
     private fun launchFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_main, fragment)
             .commit()
