@@ -14,25 +14,25 @@ class RelevantVacanciesViewModel(
     private val getVacanciesUseCase: GetVacanciesUseCase
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<State>()
-    val state: LiveData<State>
-        get() = _state
+    private val _vacancies = MutableLiveData<List<Vacancy>>()
+    val vacancies: LiveData<List<Vacancy>>
+        get() = _vacancies
 
-    fun loadData() {
-        viewModelScope.launch {
-            try {
-                val vacancies = withContext(Dispatchers.IO) {
-                    getVacanciesUseCase()
-                }
-                _state.value = State.Loaded(vacancies = vacancies)
-            } catch (e: Exception) {
-                _state.value = State.Error(error = e.message.toString())
-            }
-        }
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
+
+    init {
+        loadData()
     }
 
-    sealed interface State {
-        data class Loaded(val vacancies: List<Vacancy>) : State
-        data class Error(val error: String) : State
+    private fun loadData() {
+        viewModelScope.launch {
+            try {
+                _vacancies.value = withContext(Dispatchers.IO) { getVacanciesUseCase() }
+            } catch (e: Exception) {
+                _error.value = e.message.toString()
+            }
+        }
     }
 }

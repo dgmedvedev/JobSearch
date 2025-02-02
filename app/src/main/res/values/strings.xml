@@ -35,7 +35,11 @@
 
     <!--    Errors-->
     <string name="unknown_viewmodel_class">Unknown ViewModel class</string>
-    <string name="error_loading_offers">Ошибка загрузки блока рекомендаций: %s</string>
-    <string name="error_loading_vacancies">Ошибка загрузки вакансий: %s</string>
+    <string name="error_loading">Ошибка загрузки: %s</string>
     <string name="error_loading_page">Ошибка загрузки страницы: %s</string>
+    <string name="nav_search">Поиск</string>
+    <string name="nav_favorite">Избранное</string>
+    <string name="nav_responses">Отклики</string>
+    <string name="nav_messages">Сообщения</string>
+    <string name="nav_profile">Профиль</string>
 </resources>

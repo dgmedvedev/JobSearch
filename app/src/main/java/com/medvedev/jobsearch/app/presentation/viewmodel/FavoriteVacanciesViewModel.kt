@@ -10,12 +10,7 @@ class FavoriteVacanciesViewModel(
     private val getVacanciesFavoriteUseCase: GetVacanciesFavoriteUseCase
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<State>()
-    val state: LiveData<State>
-        get() = _state
-
-    sealed interface State {
-        data class Loaded(val vacancies: List<Vacancy>) : State
-        data class Error(val error: String) : State
-    }
+    private val _vacancies = MutableLiveData<List<Vacancy>>()
+    val vacancies: LiveData<List<Vacancy>>
+        get() = _vacancies
 }

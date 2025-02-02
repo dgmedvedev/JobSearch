@@ -9,5 +9,8 @@ class FavoriteVacanciesFragment : Fragment(R.layout.fragment_favorite_vacancies)
 
     private val binding by viewBinding(FragmentFavoriteVacanciesBinding::bind)
 
-
+    companion object {
+        fun getInstance(): FavoriteVacanciesFragment =
+            FavoriteVacanciesFragment()
+    }
 }
