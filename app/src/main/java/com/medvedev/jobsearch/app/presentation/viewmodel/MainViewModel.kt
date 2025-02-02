@@ -6,15 +6,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.medvedev.jobsearch.domain.model.offer.Offer
 import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
+import com.medvedev.jobsearch.domain.usecase.DeleteVacancyFavoriteUseCase
 import com.medvedev.jobsearch.domain.usecase.GetOffersUseCase
 import com.medvedev.jobsearch.domain.usecase.GetVacanciesUseCase
+import com.medvedev.jobsearch.domain.usecase.InsertVacancyFavoriteUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
     private val getOffersUseCase: GetOffersUseCase,
-    private val getVacanciesUseCase: GetVacanciesUseCase
+    private val getVacanciesUseCase: GetVacanciesUseCase,
+    private val insertVacancyFavoriteUseCase: InsertVacancyFavoriteUseCase,
+    private val deleteVacancyFavoriteUseCase: DeleteVacancyFavoriteUseCase
 ) : ViewModel() {
 
     private val _offers = MutableLiveData<List<Offer>>()
@@ -25,8 +29,8 @@ class MainViewModel(
     val vacancies: LiveData<List<Vacancy>>
         get() = _vacancies
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String>
+    private val _error = MutableLiveData<Unit>()
+    val error: LiveData<Unit>
         get() = _error
 
     init {
@@ -38,14 +42,26 @@ class MainViewModel(
             try {
                 _offers.value = withContext(Dispatchers.IO) { getOffersUseCase() }
             } catch (e: Exception) {
-                _error.value = e.message.toString()
+                _error.value = Unit
             }
         }
         viewModelScope.launch {
             try {
                 _vacancies.value = withContext(Dispatchers.IO) { getVacanciesUseCase() }
             } catch (e: Exception) {
-                _error.value = e.message.toString()
+                _error.value = Unit
+            }
+        }
+    }
+
+    fun onVacancyIconPressed(vacancy: Vacancy) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                if (vacancy.isFavorite) {
+                    insertVacancyFavoriteUseCase(vacancy)
+                } else {
+                    deleteVacancyFavoriteUseCase(vacancy)
+                }
             }
         }
     }

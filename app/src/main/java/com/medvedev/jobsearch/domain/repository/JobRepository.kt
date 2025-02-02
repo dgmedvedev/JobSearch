@@ -7,4 +7,6 @@ interface JobRepository {
     suspend fun getOffers(): List<Offer>
     suspend fun getVacancies(): List<Vacancy>
     suspend fun getVacanciesFavorite(): List<Vacancy>
+    suspend fun insertVacancyFavorite(vacancy: Vacancy)
+    suspend fun deleteVacancyFavorite(vacancy: Vacancy)
 }

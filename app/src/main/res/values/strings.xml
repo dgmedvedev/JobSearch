@@ -33,7 +33,7 @@
     <string name="apply">Откликнуться</string>
     <string name="button_back">Вернуться на предыдущий экран</string>
     <string name="unknown_viewmodel_class">Unknown ViewModel class</string>
-    <string name="error_loading">Ошибка загрузки: %s</string>
+    <string name="error_loading">Ошибка загрузки."\n"Проверьте подключение к интернету</string>
     <string name="error_loading_page">Ошибка загрузки страницы: %s</string>
     <string name="nav_search">Поиск</string>
     <string name="nav_favorite">Избранное</string>
