@@ -45,7 +45,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setAdapters()
         setListener()
         bindViewModel()
-        vm.loadData()
     }
 
     private fun onOfferItemClickListener(): (Offer) -> Unit = { offer ->
@@ -85,34 +84,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun bindViewModel() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is MainViewModel.State.OffersLoaded -> offerAdapter.submitList(state.offers)
-                is MainViewModel.State.VacanciesLoaded -> {
-                    val vacancies = state.vacancies
-                    val visibleVacancies = if (vacancies.size > 3) vacancies.take(3) else vacancies
-                    vacancyAdapter.submitList(visibleVacancies)
-                    binding.btnAllVacancies.text =
-                        getString(
-                            R.string.text_all_vacancies,
-                            getVacancyGenitiveCase(vacancies.size)
-                        )
-                }
-
-                is MainViewModel.State.ErrorLoadingOffers -> showToast(
-                    getString(
-                        R.string.error_loading_offers,
-                        state.error
-                    )
+        vm.offers.observe(viewLifecycleOwner) { offers ->
+            offerAdapter.submitList(offers)
+        }
+        vm.vacancies.observe(viewLifecycleOwner) { vacancies ->
+            val visibleVacancies = if (vacancies.size > 3) vacancies.take(3) else vacancies
+            vacancyAdapter.submitList(visibleVacancies)
+            binding.btnAllVacancies.text =
+                getString(
+                    R.string.text_all_vacancies,
+                    getVacancyGenitiveCase(vacancies.size)
                 )
-
-                is MainViewModel.State.ErrorLoadingVacancies -> showToast(
-                    getString(
-                        R.string.error_loading_vacancies,
-                        state.error
-                    )
+        }
+        vm.error.observe(viewLifecycleOwner) { error ->
+            showToast(
+                getString(
+                    R.string.error_loading,
+                    error
                 )
-            }
+            )
         }
     }
 

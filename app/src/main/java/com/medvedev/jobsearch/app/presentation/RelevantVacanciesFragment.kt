@@ -36,7 +36,6 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
         setAdapter()
         setListener()
         bindViewModel()
-        vm.loadData()
     }
 
     private fun onVacancyItemClickListener(): () -> Unit = {
@@ -58,24 +57,21 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
     }
 
     private fun bindViewModel() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is RelevantVacanciesViewModel.State.Loaded -> {
-                    vacancyAdapter.submitList(state.vacancies)
-                    binding.tvNumberOfVacancies.text =
-                        getString(
-                            R.string.number_of_vacancies,
-                            getVacancyGenitiveCase(state.vacancies.size)
-                        )
-                }
-
-                is RelevantVacanciesViewModel.State.Error -> showToast(
-                    getString(
-                        R.string.error_loading_vacancies,
-                        state.error
-                    )
+        vm.vacancies.observe(viewLifecycleOwner) { vacancies ->
+            vacancyAdapter.submitList(vacancies)
+            binding.tvNumberOfVacancies.text =
+                getString(
+                    R.string.number_of_vacancies,
+                    getVacancyGenitiveCase(vacancies.size)
                 )
-            }
+        }
+        vm.error.observe(viewLifecycleOwner) { error ->
+            showToast(
+                getString(
+                    R.string.error_loading,
+                    error
+                )
+            )
         }
     }
 

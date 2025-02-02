@@ -32,10 +32,17 @@
     <string name="tools_text_experience">Опыт от 1 года до 3 лет</string>
     <string name="apply">Откликнуться</string>
     <string name="button_back">Вернуться на предыдущий экран</string>
-
-    <!--    Errors-->
     <string name="unknown_viewmodel_class">Unknown ViewModel class</string>
-    <string name="error_loading_offers">Ошибка загрузки блока рекомендаций: %s</string>
-    <string name="error_loading_vacancies">Ошибка загрузки вакансий: %s</string>
+    <string name="error_loading">Ошибка загрузки: %s</string>
     <string name="error_loading_page">Ошибка загрузки страницы: %s</string>
+    <string name="nav_search">Поиск</string>
+    <string name="nav_favorite">Избранное</string>
+    <string name="nav_responses">Отклики</string>
+    <string name="nav_messages">Сообщения</string>
+    <string name="nav_profile">Профиль</string>
+    <string name="go_to_main_screen">Переход к главному экрану</string>
+    <string name="go_to_favorite_screen">Переход к экрану избранное</string>
+    <string name="go_to_responses_screen">Переход к экрану отклики</string>
+    <string name="go_to_message_screen">Переход к экрану сообщения</string>
+    <string name="go_to_profile_screen">Переход к экрану профиль</string>
 </resources>

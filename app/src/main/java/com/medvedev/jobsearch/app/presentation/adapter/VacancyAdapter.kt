@@ -71,7 +71,7 @@ class VacancyAdapter(
                 ivFavoriteVacancyIcon.setOnClickListener {
                     onVacancyIconClickListener.invoke(vacancyItem)
                     vacancyItem.isFavorite = !vacancyItem.isFavorite
-                    setFavoriteVacancyIcon(ivFavoriteVacancyIcon, !vacancyItem.isFavorite)
+                    setFavoriteVacancyIcon(ivFavoriteVacancyIcon, vacancyItem.isFavorite)
                 }
 
                 root.setOnClickListener {

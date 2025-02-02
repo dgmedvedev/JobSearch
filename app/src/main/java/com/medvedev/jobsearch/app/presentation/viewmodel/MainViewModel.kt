@@ -17,37 +17,36 @@ class MainViewModel(
     private val getVacanciesUseCase: GetVacanciesUseCase
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<State>()
-    val state: LiveData<State>
-        get() = _state
+    private val _offers = MutableLiveData<List<Offer>>()
+    val offers: LiveData<List<Offer>>
+        get() = _offers
 
-    fun loadData() {
-        viewModelScope.launch {
-            try {
-                val offers = withContext(Dispatchers.IO) {
-                    getOffersUseCase()
-                }
-                _state.value = State.OffersLoaded(offers = offers)
-            } catch (e: Exception) {
-                _state.value = State.ErrorLoadingOffers(error = e.message.toString())
-            }
-        }
-        viewModelScope.launch {
-            try {
-                val vacancies = withContext(Dispatchers.IO) {
-                    getVacanciesUseCase()
-                }
-                _state.value = State.VacanciesLoaded(vacancies = vacancies)
-            } catch (e: Exception) {
-                _state.value = State.ErrorLoadingVacancies(error = e.message.toString())
-            }
-        }
+    private val _vacancies = MutableLiveData<List<Vacancy>>()
+    val vacancies: LiveData<List<Vacancy>>
+        get() = _vacancies
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
+
+    init {
+        loadData()
     }
 
-    sealed interface State {
-        data class OffersLoaded(val offers: List<Offer>) : State
-        data class VacanciesLoaded(val vacancies: List<Vacancy>) : State
-        data class ErrorLoadingOffers(val error: String) : State
-        data class ErrorLoadingVacancies(val error: String) : State
+    private fun loadData() {
+        viewModelScope.launch {
+            try {
+                _offers.value = withContext(Dispatchers.IO) { getOffersUseCase() }
+            } catch (e: Exception) {
+                _error.value = e.message.toString()
+            }
+        }
+        viewModelScope.launch {
+            try {
+                _vacancies.value = withContext(Dispatchers.IO) { getVacanciesUseCase() }
+            } catch (e: Exception) {
+                _error.value = e.message.toString()
+            }
+        }
     }
 }
