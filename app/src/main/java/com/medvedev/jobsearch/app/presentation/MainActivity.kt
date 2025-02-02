@@ -24,15 +24,10 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnNavItemClickListener { index ->
             when (index) {
                 0 -> launchFragment(MainFragment.getInstance())
-
                 1 -> launchFragment(FavoriteVacanciesFragment.getInstance())
-
                 2 -> launchFragment(ResponsesFragment.getInstance())
-
                 3 -> launchFragment(MessagesFragment.getInstance())
-
                 4 -> launchFragment(ProfileFragment.getInstance())
-
                 else -> return@setOnNavItemClickListener
             }
         }

@@ -16,6 +16,7 @@ retrofit = "2.11.0"
 roomVersion = "2.6.1"
 devtoolsKsp = "2.1.0-1.0.29"
 koin = "4.0.1"
+jetbrainsKotlinJvm = "2.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,3 +45,5 @@ koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin"
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "devtoolsKsp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }

@@ -1,13 +1,12 @@
 package com.medvedev.jobsearch.data.network
 
-import com.medvedev.jobsearch.data.network.model.offer.OffersDto
 import com.medvedev.jobsearch.data.network.model.vacancy.VacanciesDto
 import retrofit2.http.GET
 
 interface ApiService {
 
     @GET(GET_PARAM_VALUE)
-    suspend fun getOffers(): OffersDto
+    suspend fun getOffers(): com.medvedev.jobsearch.data.network.model.offer.OffersDto
 
     @GET(GET_PARAM_VALUE)
     suspend fun getVacancies(): VacanciesDto
