@@ -40,11 +40,9 @@ class CustomBottomNavigationView @JvmOverloads constructor(
         onNavItemClickListener = listener
     }
 
-    private fun initClickListeners() = with(binding) {
-        items.forEachIndexed { index, item ->
-            item.setOnClickListener {
-                onItemClick(index)
-            }
+    private fun initClickListeners() = items.forEachIndexed { index, item ->
+        item.setOnClickListener {
+            onItemClick(index)
         }
     }
 
