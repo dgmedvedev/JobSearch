@@ -1,7 +1,6 @@
 package com.medvedev.jobsearch.app.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -117,14 +116,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun launchFragment(fragment: Fragment) {
-        Log.e("TEST_VIEW_MODEL", "${parentFragmentManager.fragments.size}")
-        Log.e("TEST_VIEW_MODEL", "${parentFragmentManager.getBackStackEntryAt(0).name}")
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.container_main, fragment)
+            .addToBackStack(null)
             .commit()
-        Log.e("TEST_VIEW_MODEL", "${parentFragmentManager.fragments.size}")
-        Log.e("TEST_VIEW_MODEL", "${parentFragmentManager.getBackStackEntryAt(0).name}")
     }
 
     private fun showToast(message: String) {

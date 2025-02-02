@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.medvedev.jobsearch.R
 import com.medvedev.jobsearch.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
