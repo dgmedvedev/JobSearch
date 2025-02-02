@@ -42,7 +42,7 @@ class FavoriteVacanciesFragment : Fragment(R.layout.fragment_favorite_vacancies)
     }
 
     private fun onVacancyIconClickListener(): (Vacancy) -> Unit = { vacancy ->
-        Toast.makeText(requireContext(), "${vacancy.isFavorite}", Toast.LENGTH_SHORT).show()
+        vm.onVacancyIconPressed(vacancy)
     }
 
     private fun setAdapter() {
@@ -53,12 +53,9 @@ class FavoriteVacanciesFragment : Fragment(R.layout.fragment_favorite_vacancies)
         vm.vacancies.observe(viewLifecycleOwner) { vacancies ->
             vacancyAdapter.submitList(vacancies)
         }
-        vm.error.observe(viewLifecycleOwner) { error ->
+        vm.error.observe(viewLifecycleOwner) {
             showToast(
-                getString(
-                    R.string.error_loading,
-                    error
-                )
+                getString(R.string.error_loading)
             )
         }
     }
