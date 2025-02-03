@@ -1,33 +1,27 @@
-package com.medvedev.jobsearch.app.presentation
+package com.medvedev.jobsearch.presentation
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.medvedev.jobsearch.R
-import com.medvedev.jobsearch.app.presentation.adapter.OfferAdapter
-import com.medvedev.jobsearch.app.presentation.adapter.VacancyAdapter
-import com.medvedev.jobsearch.app.presentation.viewmodel.MainViewModel
-import com.medvedev.jobsearch.app.presentation.viewmodel.ViewModelFactory
 import com.medvedev.jobsearch.databinding.FragmentMainBinding
 import com.medvedev.jobsearch.domain.model.offer.Offer
 import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
+import com.medvedev.jobsearch.presentation.adapter.OfferAdapter
+import com.medvedev.jobsearch.presentation.adapter.VacancyAdapter
+import com.medvedev.jobsearch.presentation.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding by viewBinding(FragmentMainBinding::bind)
 
-    private val vm by lazy {
-        ViewModelProvider(
-            this,
-            ViewModelFactory(requireContext().applicationContext)
-        )[MainViewModel::class.java]
-    }
+    private val vm by viewModel<MainViewModel>()
 
     private val offerAdapter by lazy {
         OfferAdapter(onOfferItemClickListener())

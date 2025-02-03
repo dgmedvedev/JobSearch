@@ -1,4 +1,4 @@
-package com.medvedev.jobsearch.app.presentation
+package com.medvedev.jobsearch.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

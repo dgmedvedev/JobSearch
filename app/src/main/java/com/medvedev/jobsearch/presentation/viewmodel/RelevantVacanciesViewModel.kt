@@ -1,4 +1,4 @@
-package com.medvedev.jobsearch.app.presentation.viewmodel
+package com.medvedev.jobsearch.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

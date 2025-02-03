@@ -1,4 +1,4 @@
-package com.medvedev.jobsearch.app.presentation.adapter
+package com.medvedev.jobsearch.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

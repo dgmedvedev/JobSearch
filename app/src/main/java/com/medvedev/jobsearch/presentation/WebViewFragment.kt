@@ -1,4 +1,4 @@
-package com.medvedev.jobsearch.app.presentation
+package com.medvedev.jobsearch.presentation
 
 import android.view.View
 import android.webkit.WebViewClient

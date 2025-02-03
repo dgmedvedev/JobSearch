@@ -6,15 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".app.presentation.MainActivity">
+    tools:context=".presentation.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_main"
-        android:name="com.medvedev.jobsearch.app.presentation.MainFragment"
+        android:name="com.medvedev.jobsearch.presentation.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:context=".app.presentation.MainActivity"
+        tools:context=".presentation.MainActivity"
         tools:layout="@layout/fragment_main" />
 
     <View
@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.medvedev.jobsearch.app.presentation.CustomBottomNavigationView
+    <com.medvedev.jobsearch.presentation.CustomBottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
