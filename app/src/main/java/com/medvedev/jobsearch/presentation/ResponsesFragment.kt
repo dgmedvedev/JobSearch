@@ -1,4 +1,4 @@
-package com.medvedev.jobsearch.app.presentation
+package com.medvedev.jobsearch.presentation
 
 import androidx.fragment.app.Fragment
 import com.medvedev.jobsearch.R

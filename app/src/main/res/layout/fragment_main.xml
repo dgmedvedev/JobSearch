@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/shadows"
     android:padding="16dp"
-    tools:context=".app.presentation.MainFragment">
+    tools:context=".presentation.MainFragment">
 
     <TextView
         android:id="@+id/tv_search"

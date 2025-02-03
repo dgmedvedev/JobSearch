@@ -1,28 +1,22 @@
-package com.medvedev.jobsearch.app.presentation
+package com.medvedev.jobsearch.presentation
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.medvedev.jobsearch.R
-import com.medvedev.jobsearch.app.presentation.adapter.VacancyAdapter
-import com.medvedev.jobsearch.app.presentation.viewmodel.RelevantVacanciesViewModel
-import com.medvedev.jobsearch.app.presentation.viewmodel.ViewModelFactory
 import com.medvedev.jobsearch.databinding.FragmentRelevantVacanciesBinding
 import com.medvedev.jobsearch.domain.model.vacancy.Vacancy
+import com.medvedev.jobsearch.presentation.adapter.VacancyAdapter
+import com.medvedev.jobsearch.presentation.viewmodel.RelevantVacanciesViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies) {
 
     private val binding by viewBinding(FragmentRelevantVacanciesBinding::bind)
 
-    private val vm by lazy {
-        ViewModelProvider(
-            this,
-            ViewModelFactory(requireContext().applicationContext)
-        )[RelevantVacanciesViewModel::class.java]
-    }
+    private val vm by viewModel<RelevantVacanciesViewModel>()
 
     private val vacancyAdapter by lazy {
         VacancyAdapter(

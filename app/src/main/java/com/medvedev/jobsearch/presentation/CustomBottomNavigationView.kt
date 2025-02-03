@@ -1,4 +1,4 @@
-package com.medvedev.jobsearch.app.presentation
+package com.medvedev.jobsearch.presentation
 
 import android.content.Context
 import android.util.AttributeSet
