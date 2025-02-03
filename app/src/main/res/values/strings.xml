@@ -19,11 +19,11 @@
     <string name="id_near_vacancies">near_vacancies</string>
     <string name="id_level_up_resume">level_up_resume</string>
     <string name="id_temporary_job">temporary_job</string>
-    <string name="text_looking_number">Cейчас просматривает %s %s</string>
-    <string name="text_publish_date">Опубликовано %s %s</string>
-    <string name="text_all_vacancies">Еще %s</string>
+    <string name="text_looking_number">Cейчас просматривает %1$s %2$s</string>
+    <string name="text_publish_date">Опубликовано %1$s %2$s</string>
+    <string name="text_all_vacancies">Еще %1$s</string>
     <string name="tools_text_number_of_vacancies">1 вакансия</string>
-    <string name="number_of_vacancies">%s</string>
+    <string name="number_of_vacancies">%1$s</string>
     <string name="tools_text_uplift">Поднять</string>
     <string name="tools_text_uplift_resume">Поднять резюме в поиске</string>
     <string name="tools_text_title">UI/UX дизайнер</string>
@@ -34,7 +34,7 @@
     <string name="button_back">Вернуться на предыдущий экран</string>
     <string name="unknown_viewmodel_class">Unknown ViewModel class</string>
     <string name="error_loading">Ошибка загрузки."\n"Проверьте подключение к интернету</string>
-    <string name="error_loading_page">Ошибка загрузки страницы: %s</string>
+    <string name="error_loading_page">Ошибка загрузки страницы: %1$s</string>
     <string name="nav_search">Поиск</string>
     <string name="nav_favorite">Избранное</string>
     <string name="nav_responses">Отклики</string>
