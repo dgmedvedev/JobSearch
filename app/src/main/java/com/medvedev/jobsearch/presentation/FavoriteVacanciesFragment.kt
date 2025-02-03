@@ -46,11 +46,25 @@ class FavoriteVacanciesFragment : Fragment(R.layout.fragment_favorite_vacancies)
     private fun bindViewModel() {
         vm.vacancies.observe(viewLifecycleOwner) { vacancies ->
             vacancyAdapter.submitList(vacancies)
+            binding.tvNumberOfVacancies.text =
+                getString(
+                    R.string.number_of_vacancies,
+                    getVacancyGenitiveCase(vacancies.size)
+                )
         }
         vm.error.observe(viewLifecycleOwner) {
             showToast(
                 getString(R.string.error_loading)
             )
+        }
+    }
+
+    private fun getVacancyGenitiveCase(numberOfVacancies: Int): String {
+        return when {
+            numberOfVacancies in 11..14 -> "$numberOfVacancies $VACANCY_FORM_MANY"
+            numberOfVacancies % 10 == 1 -> "$numberOfVacancies $VACANCY_FORM_SINGULAR"
+            numberOfVacancies % 10 in 2..4 -> "$numberOfVacancies $VACANCY_FORM_FEW"
+            else -> "$numberOfVacancies $VACANCY_FORM_MANY"
         }
     }
 
@@ -67,6 +81,10 @@ class FavoriteVacanciesFragment : Fragment(R.layout.fragment_favorite_vacancies)
     }
 
     companion object {
+        private const val VACANCY_FORM_SINGULAR = "вакансия"
+        private const val VACANCY_FORM_FEW = "вакансии"
+        private const val VACANCY_FORM_MANY = "вакансий"
+
         fun getInstance(): FavoriteVacanciesFragment =
             FavoriteVacanciesFragment()
     }
