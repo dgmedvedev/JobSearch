@@ -24,6 +24,7 @@
     <string name="text_all_vacancies">Еще %1$s</string>
     <string name="tools_text_number_of_vacancies">1 вакансия</string>
     <string name="number_of_vacancies">%1$s</string>
+    <string name="number_of_favorite_vacancies">%1$s</string>
     <string name="tools_text_uplift">Поднять</string>
     <string name="tools_text_uplift_resume">Поднять резюме в поиске</string>
     <string name="tools_text_title">UI/UX дизайнер</string>

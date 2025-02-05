@@ -40,6 +40,16 @@ class CustomBottomNavigationView @JvmOverloads constructor(
         onNavItemClickListener = listener
     }
 
+    fun showBubble(count: Int) {
+        binding.bubbleFavorite.visibility = VISIBLE
+        binding.bubbleFavorite.text =
+            context.getString(R.string.number_of_favorite_vacancies, count.toString())
+    }
+
+    fun hideBubble() {
+        binding.bubbleFavorite.visibility = GONE
+    }
+
     private fun initClickListeners() = items.forEachIndexed { index, item ->
         item.setOnClickListener {
             onItemClick(index)

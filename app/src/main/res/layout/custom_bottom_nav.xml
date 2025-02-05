@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="54dp"
+    android:layout_height="@dimen/layout_height_bottom_menu"
     android:background="@color/shadows"
     android:orientation="horizontal">
 
@@ -13,12 +13,48 @@
         android:text="@string/nav_search"
         app:drawableTopCompat="@drawable/search_icon" />
 
-    <TextView
-        android:id="@+id/item_favorite"
-        style="@style/NavItemStyle"
-        android:contentDescription="@string/go_to_favorite_screen"
-        android:text="@string/favorite"
-        app:drawableTopCompat="@drawable/heart" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/item_favorite"
+            style="@style/NavItemStyle"
+            android:clickable="true"
+            android:contentDescription="@string/go_to_favorite_screen"
+            android:focusable="true"
+            android:text="@string/favorite"
+            app:drawableTopCompat="@drawable/heart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bubble_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_bubble"
+            android:layout_marginTop="@dimen/margin_top_bubble"
+            android:background="@drawable/bubble"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/sf_pro_display"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_text_size_bubble"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/item_responses"
