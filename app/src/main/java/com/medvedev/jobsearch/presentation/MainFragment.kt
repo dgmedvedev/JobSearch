@@ -1,5 +1,6 @@
 package com.medvedev.jobsearch.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -34,6 +35,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         )
     }
 
+    private lateinit var onEditingFavoriteVacanciesListener: OnEditingFavoriteVacanciesListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onEditingFavoriteVacanciesListener = context as OnEditingFavoriteVacanciesListener
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapters()
@@ -50,6 +58,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun onVacancyIconClickListener(): (Vacancy) -> Unit = { vacancy ->
+        showToast("${vacancy.isFavorite}")
         vm.onVacancyIconPressed(vacancy)
     }
 
@@ -89,6 +98,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     R.string.text_all_vacancies,
                     getVacancyGenitiveCase(vacancies.size)
                 )
+        }
+        vm.vacanciesFavorite.observe(viewLifecycleOwner) { vacanciesFavorite ->
+            onEditingFavoriteVacanciesListener.onEditingFavoriteVacancies(vacanciesFavorite.size)
         }
         vm.error.observe(viewLifecycleOwner) {
             showToast(getString(R.string.error_loading))

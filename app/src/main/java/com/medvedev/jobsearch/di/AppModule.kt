@@ -12,6 +12,7 @@ val appModule = module {
         MainViewModel(
             getOffersUseCase = get(),
             getVacanciesUseCase = get(),
+            getVacanciesFavoriteUseCase = get(),
             insertVacancyFavoriteUseCase = get(),
             deleteVacancyFavoriteUseCase = get()
         )
@@ -28,6 +29,7 @@ val appModule = module {
     viewModel<RelevantVacanciesViewModel> {
         RelevantVacanciesViewModel(
             getVacanciesUseCase = get(),
+            getVacanciesFavoriteUseCase = get(),
             insertVacancyFavoriteUseCase = get(),
             deleteVacancyFavoriteUseCase = get()
         )

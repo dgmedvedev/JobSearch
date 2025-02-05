@@ -18,9 +18,9 @@ class FavoriteVacanciesViewModel(
     private val deleteVacancyFavoriteUseCase: DeleteVacancyFavoriteUseCase
 ) : ViewModel() {
 
-    private val _vacancies = MutableLiveData<List<Vacancy>>()
-    val vacancies: LiveData<List<Vacancy>>
-        get() = _vacancies
+    private val _vacanciesFavorite = MutableLiveData<List<Vacancy>>()
+    val vacanciesFavorite: LiveData<List<Vacancy>>
+        get() = _vacanciesFavorite
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
@@ -33,7 +33,8 @@ class FavoriteVacanciesViewModel(
     private fun loadData() {
         viewModelScope.launch {
             try {
-                _vacancies.value = withContext(Dispatchers.IO) { getVacanciesFavoriteUseCase() }
+                _vacanciesFavorite.value =
+                    withContext(Dispatchers.IO) { getVacanciesFavoriteUseCase() }
             } catch (e: Exception) {
                 _error.value = e.message.toString()
             }
@@ -42,7 +43,7 @@ class FavoriteVacanciesViewModel(
 
     fun onVacancyIconPressed(vacancy: Vacancy) {
         viewModelScope.launch {
-            _vacancies.value = withContext(Dispatchers.IO) {
+            _vacanciesFavorite.value = withContext(Dispatchers.IO) {
                 if (vacancy.isFavorite) {
                     insertVacancyFavoriteUseCase(vacancy)
                 } else {

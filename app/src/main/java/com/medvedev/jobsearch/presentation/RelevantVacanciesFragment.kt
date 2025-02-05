@@ -1,5 +1,6 @@
 package com.medvedev.jobsearch.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -23,6 +24,13 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
             onVacancyItemClickListener(),
             onVacancyIconClickListener()
         )
+    }
+
+    private lateinit var onEditingFavoriteVacanciesListener: OnEditingFavoriteVacanciesListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onEditingFavoriteVacanciesListener = context as OnEditingFavoriteVacanciesListener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +66,9 @@ class RelevantVacanciesFragment : Fragment(R.layout.fragment_relevant_vacancies)
                     R.string.number_of_vacancies,
                     getVacancyGenitiveCase(vacancies.size)
                 )
+        }
+        vm.vacanciesFavorite.observe(viewLifecycleOwner) { vacanciesFavorite ->
+            onEditingFavoriteVacanciesListener.onEditingFavoriteVacancies(vacanciesFavorite.size)
         }
         vm.error.observe(viewLifecycleOwner) {
             showToast(

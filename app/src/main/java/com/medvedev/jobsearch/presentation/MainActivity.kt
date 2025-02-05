@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.medvedev.jobsearch.R
 import com.medvedev.jobsearch.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main), OnEditingFavoriteVacanciesListener {
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    private val binding by viewBinding(ActivityMainBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +18,13 @@ class MainActivity : AppCompatActivity() {
         setListener()
     }
 
+    override fun onEditingFavoriteVacancies(count: Int) {
+        if (count > 0) {
+            binding.bottomNavigation.showBubble(count = count)
+        } else {
+            binding.bottomNavigation.hideBubble()
+        }
+    }
 
     private fun setListener() {
         binding.bottomNavigation.setOnNavItemClickListener { index ->
