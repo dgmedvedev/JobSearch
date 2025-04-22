@@ -58,7 +58,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun onVacancyIconClickListener(): (Vacancy) -> Unit = { vacancy ->
-        showToast("${vacancy.isFavorite}")
         vm.onVacancyIconPressed(vacancy)
     }
 
